@@ -1,4 +1,5 @@
 import { Command } from "commander";
+import { addExpense } from "./accountManager";
 const program = new Command();
 
 program
@@ -7,10 +8,7 @@ program
   .option("--description <description>", "Add a description for expense")
   .option("--amount <amount>", "Add the amount for expense")
   .action((options) => {
-    console.log(
-      "Expense added successfully: " +
-        `${options.description}, ${options.amount}`
-    );
+    addExpense(options.description, options.amount);
   });
 
 program
