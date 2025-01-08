@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { addExpense } from "./accountManager";
+import { addExpense, getAllExpenses } from "./accountManager";
 const program = new Command();
 
 program
@@ -15,7 +15,7 @@ program
   .command("list")
   .description("See list of expenses")
   .action(() => {
-    console.log("All Expenses");
+    getAllExpenses();
   });
 
 program

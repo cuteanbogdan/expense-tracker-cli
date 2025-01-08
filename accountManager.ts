@@ -13,7 +13,6 @@ export const addExpense = (description: string, amount: number) => {
   if (fs.existsSync("./expenses.json")) {
     const readFile = readFileSync("./expenses.json");
     if (readFile.length) {
-      console.log(readFile);
       data = JSON.parse(Buffer.from(readFile).toString());
     }
   }
@@ -31,12 +30,25 @@ export const addExpense = (description: string, amount: number) => {
     if (err) {
       console.log("Error while writing the file");
     } else {
-      console.log("Expense added successfully");
+      console.log(
+        `Expense added successfully (ID: ${data[data.length - 1].ID})`
+      );
     }
   });
 };
 
-export const getAllExpenses = () => {};
+export const getAllExpenses = () => {
+  let data;
+  if (fs.existsSync("./expenses.json")) {
+    const readFile = readFileSync("./expenses.json");
+    if (readFile.length) {
+      data = JSON.parse(Buffer.from(readFile).toString());
+      console.log(data);
+    } else {
+      console.log("No expenses added!");
+    }
+  }
+};
 
 export const summaryOfExpenses = () => {};
 
