@@ -1,8 +1,12 @@
-import fs, { readFileSync } from "fs";
+import fs from "fs";
+import { readExpenseFile } from "./utils";
 
 export const addExpense = (description: string, amount: number) => {
-  if (!description || amount <= 0) throw Error("Invalid amount or description");
-  let data;
+  if (!description || !amount || amount <= 0) {
+    console.log("Invalid amount or description!");
+    return;
+  }
+
   const newEntry = {
     ID: 0,
     Date: new Date(Date.now()).toISOString().substring(0, 10),
@@ -10,12 +14,7 @@ export const addExpense = (description: string, amount: number) => {
     Amount: amount,
   };
 
-  if (fs.existsSync("./expenses.json")) {
-    const readFile = readFileSync("./expenses.json");
-    if (readFile.length) {
-      data = JSON.parse(Buffer.from(readFile).toString());
-    }
-  }
+  let data = readExpenseFile();
 
   if (data) {
     newEntry.ID = data[data.length - 1].ID + 1;
@@ -38,18 +37,9 @@ export const addExpense = (description: string, amount: number) => {
 };
 
 export const getAllExpenses = () => {
-  let data;
-  if (fs.existsSync("./expenses.json")) {
-    const readFile = readFileSync("./expenses.json");
-    if (readFile.length) {
-      data = JSON.parse(Buffer.from(readFile).toString());
-      console.log(data);
-    } else {
-      console.log("No expenses added!");
-    }
-  }
+  console.log(readExpenseFile());
 };
 
 export const summaryOfExpenses = () => {};
 
-export const deleteAnExpense = () => {};
+export const deleteAnExpense = (id: string) => {};
