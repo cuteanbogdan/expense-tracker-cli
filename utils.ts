@@ -12,3 +12,13 @@ export const readExpenseFile = () => {
     }
   }
 };
+
+export const writeExpenseFile = (jsonData: string): boolean => {
+  try {
+    fs.writeFileSync("expenses.json", jsonData, "utf-8");
+    return true;
+  } catch {
+    console.log("Error while writing the file");
+    return false;
+  }
+};

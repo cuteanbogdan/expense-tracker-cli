@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { addExpense, getAllExpenses } from "./accountManager";
+import { addExpense, deleteAnExpense, getAllExpenses } from "./accountManager";
 const program = new Command();
 
 program
@@ -31,7 +31,7 @@ program
   .description("Remove an expense")
   .option("--id <id>", "Id of expense")
   .action((options) => {
-    console.log("Removed:" + options.id);
+    deleteAnExpense(options.id);
   });
 
 program.parse();
