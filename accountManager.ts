@@ -37,11 +37,39 @@ export const getAllExpenses = () => {
 export const summaryOfExpenses = (month: string = "0") => {
   let data = readExpenseFile();
   let sum: number = 0;
+  let newData;
   if (data.length) {
-    for (let expense of data) {
-      sum += parseInt(expense.Amount);
+    if (month !== "0") {
+      let intMonth = parseInt(month);
+      if (intMonth >= 1 && intMonth <= 12) {
+        newData = data.filter(
+          (element: Expense) =>
+            new Date(element.Date).getMonth() + 1 === intMonth
+        );
+      } else {
+        console.log("Wrong input for month!");
+        return;
+      }
+      if (newData.length) {
+        for (let expense of newData) {
+          sum += parseInt(expense.Amount);
+        }
+        console.log(
+          `Total expenses for month ${new Date(newData[0].Date).toLocaleString(
+            "default",
+            { month: "long" }
+          )}: $${sum}`
+        );
+      } else {
+        console.log("No expenses for selected month");
+        return;
+      }
+    } else {
+      for (let expense of data) {
+        sum += parseInt(expense.Amount);
+      }
+      console.log(`Total expenses: $${sum}`);
     }
-    console.log(`Total expenses: $${sum}`);
   } else {
     console.log("No expenses added!");
   }
