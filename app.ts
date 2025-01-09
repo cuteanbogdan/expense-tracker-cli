@@ -4,6 +4,7 @@ import {
   deleteAnExpense,
   getAllExpenses,
   summaryOfExpenses,
+  updateAnExpense,
 } from "./accountManager";
 const program = new Command();
 
@@ -14,6 +15,16 @@ program
   .option("--amount <amount>", "Add the amount for expense")
   .action((options) => {
     addExpense(options.description, options.amount);
+  });
+
+program
+  .command("update")
+  .description("Update an expense")
+  .option("--id <id>", "Id of expense")
+  .option("--description <description>", "Add a description for expense")
+  .option("--amount <amount>", "Add the amount for expense")
+  .action((options) => {
+    updateAnExpense(options.id, options.description, options.amount);
   });
 
 program

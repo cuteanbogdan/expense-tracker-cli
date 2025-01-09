@@ -30,6 +30,44 @@ export const addExpense = (description: string, amount: number) => {
   }
 };
 
+export const updateAnExpense = (
+  id: string,
+  description: string,
+  amount: number
+) => {
+  if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
+    console.log("Invalid id");
+    return;
+  }
+
+  if ((!description && !amount) || amount <= 0) {
+    console.log("Invalid amount or description!");
+    return;
+  }
+
+  let data = readExpenseFile();
+  let findId = data.findIndex(
+    (element: Expense) => element.ID === parseInt(id)
+  );
+
+  if (data[findId]) {
+    data[findId] = {
+      ...data[findId],
+      ...(description !== undefined && { Description: description }),
+      ...(amount !== undefined && { Amount: amount }),
+    };
+  } else {
+    console.log("No expense with id: " + id);
+    return;
+  }
+
+  const jsonData = JSON.stringify(data);
+  const writtenFile = writeExpenseFile(jsonData);
+  if (writtenFile) {
+    console.log("Expense updated successfully");
+  }
+};
+
 export const getAllExpenses = () => {
   console.log(readExpenseFile());
 };
