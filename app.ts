@@ -1,5 +1,10 @@
 import { Command } from "commander";
-import { addExpense, deleteAnExpense, getAllExpenses } from "./accountManager";
+import {
+  addExpense,
+  deleteAnExpense,
+  getAllExpenses,
+  summaryOfExpenses,
+} from "./accountManager";
 const program = new Command();
 
 program
@@ -23,7 +28,7 @@ program
   .description("Sum of all expenses")
   .option("--month <month>", "Month for expenses")
   .action((options) => {
-    console.log("Sum of expenses");
+    summaryOfExpenses(options.month);
   });
 
 program

@@ -1,4 +1,4 @@
-type Expense = {
+export type Expense = {
   ID: number;
   Date: Date;
   Description: string;

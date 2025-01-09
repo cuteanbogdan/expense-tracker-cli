@@ -1,5 +1,5 @@
 import { readExpenseFile, writeExpenseFile } from "./utils";
-
+import { Expense } from "./types";
 export const addExpense = (description: string, amount: number) => {
   if (!description || !amount || amount <= 0) {
     console.log("Invalid amount or description!");
@@ -34,7 +34,18 @@ export const getAllExpenses = () => {
   console.log(readExpenseFile());
 };
 
-export const summaryOfExpenses = () => {};
+export const summaryOfExpenses = (month: string = "0") => {
+  let data = readExpenseFile();
+  let sum: number = 0;
+  if (data.length) {
+    for (let expense of data) {
+      sum += parseInt(expense.Amount);
+    }
+    console.log(`Total expenses: $${sum}`);
+  } else {
+    console.log("No expenses added!");
+  }
+};
 
 export const deleteAnExpense = (id: string) => {
   const data = readExpenseFile();
