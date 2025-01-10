@@ -3,6 +3,7 @@
 ## Description
 
 This is a TypeScript-based Command Line Interface (CLI) application for managing personal expenses. The application allows you to add, update, delete, list, and summarize expenses.
+Project: https://roadmap.sh/projects/expense-tracker
 
 ## Prerequisites
 
